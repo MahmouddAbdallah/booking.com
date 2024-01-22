@@ -27,7 +27,10 @@ origin: (origin, callback) => {
 credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors({
+    origin:true,
+    credentials:true
+}));
 
 
 
