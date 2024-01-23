@@ -14,7 +14,7 @@ interface props {
     setToggle: React.Dispatch<SetStateAction<string>>;
     toggle: string;
 }
-const AddressDetails: React.FC<props> = ({ context, setToggle, toggle }) => {
+const AddressDetails: React.FC<props> = ({ setToggle, toggle }) => {
 
     return (
         <div className="w-full border-t p-3 flex justify-between items-center">
