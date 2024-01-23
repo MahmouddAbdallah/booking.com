@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { AboutIcon, BooksIcon, CloseIcon, GoogleIcon, HomeListIcon, PartnerIcon, SupportIcon } from "./Icons";
+import { UseAppContext } from "../context/appContext";
 interface MenuInterface {
     open: boolean;
     setOpen: (value: boolean) => void;
 }
 const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
     const navigate = useNavigate();
+    const context = UseAppContext();
+
     const closeMenu = (link: string) => {
         setOpen(false);
         navigate(link)
@@ -29,9 +32,12 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
     ]
 
     return (
-        <div className="fixed w-screen h-screen top-0 left-0 z-50 px-5 bg-white transition-all ease-in-out duration-200">
+        <div className={`fixed w-screen h-screen top-0 left-0 z-50 px-5 bg-white transition-all ease-in-out duration-200 ${open ? "bottom-to-top" : "top-to-bottom"}`}>
             <div className="w-full flex justify-end py-3">
-                <button onClick={() => { setOpen(!open) }}>
+                <button onClick={() => {
+                    setOpen(!open)
+                    document.body.style.overflow = "auto"
+                }}>
                     <CloseIcon className="w-4 fill-gray-600" />
                 </button>
             </div>
@@ -85,12 +91,17 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
             </div>
             <div className="flex justify-center py-5">
                 <div className='space-x-2'>
-                    <button onClick={() => closeMenu('/sign-up')} className='bg-blue-50 text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-5 py-2'>
-                        Register
-                    </button>
-                    <button onClick={() => closeMenu('/sign-in')} className='bg-blue-50 text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-5 py-2'>
-                        Sign in
-                    </button>
+                    {
+                        !context?.isLogged &&
+                        <>
+                            <button onClick={() => closeMenu('/sign-up')} className='bg-blue-50 text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-5 py-2'>
+                                Register
+                            </button>
+                            <button onClick={() => closeMenu('/sign-in')} className='bg-blue-50 text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-5 py-2'>
+                                Sign in
+                            </button>
+                        </>
+                    }
                 </div>
             </div>
         </div>

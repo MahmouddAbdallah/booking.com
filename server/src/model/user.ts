@@ -6,6 +6,14 @@ export type userType ={
     password:string;
     firstName:string;
     lastName:string;
+    gender:string;
+    phone:string;
+    address: {
+        country: string;
+        address: string;
+        city: string;
+        postalCode: string;
+    };
 }
 
 const userSchema =new mongoose.Schema({
@@ -27,6 +35,19 @@ const userSchema =new mongoose.Schema({
     lastName:{
         type: String,
         required:true
+    },
+    gender:{
+        type:String,
+        enum:["male","female"]
+    },
+    phone:{
+        type:String,
+    },
+    address:{
+        country: String,
+        address: String,
+        city: String,
+        postalCode: String,
     },
     password:{
         type:String,

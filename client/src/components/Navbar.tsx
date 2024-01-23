@@ -3,7 +3,7 @@ import { AboutIcon, BedIcon, CarIcon, FlightIcon, LogoIcon, MenuIcon, PersonIcon
 import Menu from './Menu'
 import { Link, useLocation } from 'react-router-dom';
 import { UseAppContext } from '../context/appContext';
-import LogOut from './LogOut';
+import PersonMenu from './PersonMenu';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -33,14 +33,28 @@ const Navbar = () => {
     ]
     return (
         <nav className='bg-primary'>
-            <div className=' px-3 lg:px-24 xl:px-44'>
-                <div className='flex justify-between py-5'>
+            <div className='p-container'>
+                <div className='flex justify-between items-center py-5'>
                     <Link to={'/'}>
-                        <LogoIcon className='w-[120px] lg:w-[130px]' />
+                        <LogoIcon className='w-[120px] lg:w-[140px]' />
                     </Link>
                     <div className='flex gap-3 lg:hidden'>
-                        {!pathname.includes("sign-up") && <PersonIcon className='w-6 fill-white' />}
-                        <button onClick={() => { setOpen(!open) }}>
+                        {
+                            context?.isLogged ?
+                                <PersonMenu />
+                                : <>
+                                    {!pathname.includes("sign-in") &&
+                                        !pathname.includes("sign-up") &&
+                                        <Link to={'/sign-in'}>
+                                            <PersonIcon className='w-6 fill-white' />
+                                        </Link>
+                                    }
+                                </>
+                        }
+                        <button onClick={() => {
+                            setOpen(!open);
+                            document.body.style.overflow = 'hidden'
+                        }}>
                             <MenuIcon className='w-5 fill-white' />
                         </button>
                     </div>
@@ -52,7 +66,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div>
-                            <span className='text-white font-semibold text-sm'>
+                            <span className='text-white font-semibold text-sm lg:text-base'>
                                 List your property
                             </span>
                         </div>
@@ -61,7 +75,7 @@ const Navbar = () => {
                             <div className='space-x-2'>
                                 {
                                     context?.isLogged ?
-                                        <LogOut />
+                                        <PersonMenu />
                                         :
                                         <>
                                             <Link to={'/sign-up'} className='bg-white text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-2 py-1'>
@@ -78,10 +92,11 @@ const Navbar = () => {
                 </div>
                 {
                     !pathname.includes("sign-in") &&
+                    !pathname.includes("account") &&
                     !pathname.includes("sign-up")
 
                     &&
-                    <ul className='flex justify-between text-white sm:w-[70%] md:w-[50%]'>
+                    <ul className='flex justify-between text-white sm:w-[70%] md:w-[50%] overflow-x-auto hidden-scrollbar'>
                         {navItem.map((item, i) => {
                             return <li key={item.title}>
                                 <div className={`flex items-center gap-2 py-2 px-3 rounded-full ${i == 0 ? 'border bg-white/10' : "hover:bg-white/10 duration-300 cursor-pointer"}`}>
@@ -89,7 +104,7 @@ const Navbar = () => {
                                         {item.icon}
                                     </div>
                                     <div>
-                                        <span className='text-sm'>
+                                        <span className='text-sm whitespace-nowrap'>
                                             {item.title}
                                         </span>
                                     </div>
@@ -98,7 +113,7 @@ const Navbar = () => {
                         })}
                     </ul>}
             </div>
-            {open && <Menu open={open} setOpen={setOpen} />}
+            <Menu open={open} setOpen={setOpen} />
         </nav>
     )
 }

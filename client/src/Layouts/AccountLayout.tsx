@@ -1,8 +1,8 @@
-import Footer from './Footer'
-import Navbar from './Navbar'
+import AccountFooter from '../components/AccountFooter'
+import Navbar from '../components/Navbar'
 import { Outlet } from 'react-router-dom'
 
-const Layout = () => {
+const AccountLayout = () => {
     return (
         <div >
             <div>
@@ -12,10 +12,10 @@ const Layout = () => {
                 <Outlet />
             </div>
             <div>
-                <Footer />
+                <AccountFooter />
             </div>
         </div>
     )
 }
 
-export default Layout
+export default AccountLayout

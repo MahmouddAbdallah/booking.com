@@ -18,7 +18,7 @@ const QuickAndEasy = () => {
 
     return (
         <div className='space-y-3 mt-14'>
-            <div className='px-3 lg:px-24 xl:px-44'>
+            <div className='p-container'>
                 <div>
                     <h4 className='text-2xl font-bold'>Quick and easy trip planner</h4>
                     <p className='text-gray-700'>Pick a vibe and explore the top destinations in Egypt</p>

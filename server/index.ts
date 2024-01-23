@@ -6,7 +6,14 @@ import authRouter from './src/routes/authRouter';
 import userRouter from './src/routes/userRouter';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import morgan from 'morgan';
+import {v2 as cloudinary} from 'cloudinary';
 
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env .CLOUDINARY_API_SECRET
+});
 //create app
 const app = express();
 
@@ -14,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
+app.use(morgan('dev'))
 
 const allowedOrigins = ['http://localhost:5000', 'http://localhost:5173'];
 const corsOptions: CorsOptions = {

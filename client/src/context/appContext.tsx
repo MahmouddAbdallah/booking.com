@@ -7,8 +7,22 @@ import {
     useEffect,
     useState
 } from 'react'
+interface User {
+    _id: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    phone: string;
+    gender: string;
+    address: {
+        country: string;
+        address: string;
+        city: string;
+        postalCode: string;
+    }
+}
 type appContext = {
-    user: object
+    user: User;
     isLogged: boolean
     setIsLogged: React.Dispatch<SetStateAction<boolean>>
 }
@@ -17,12 +31,29 @@ interface appProps {
     children: ReactNode
 }
 const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState<User>({
+        _id: "",
+        email: '',
+        lastName: '',
+        firstName: '',
+        phone: '',
+        gender: '',
+        address: {
+            country: "",
+            address: "",
+            city: "",
+            postalCode: "",
+        }
+    });
     const [isLogged, setIsLogged] = useState(false)
     const getUser = async () => {
-        const { data } = await axios.get('/api/user/verfiy');
-        setUser(data.user)
-        setIsLogged(true)
+        try {
+            const { data } = await axios.get('/api/user/verfiy');
+            setUser(data.user)
+            setIsLogged(true)
+        } catch (error) {
+            console.error(error);
+        }
     }
     useEffect(() => {
         getUser()

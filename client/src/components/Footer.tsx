@@ -10,7 +10,7 @@ const Footer = () => {
                         <p className='text-sm text-gray-400'>Sign Up and we'll send the best deals to you</p>
                     </div>
                     <form className='w-full'>
-                        <div className='flex h-full gap-4'>
+                        <div className='flex flex-col md:flex-row h-full gap-4'>
                             <div>
                                 <input
                                     type="text"

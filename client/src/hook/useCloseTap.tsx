@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-function useCloseOnOutsideClick() {
+function useCloseOnOutsideClick(close: () => void) {
     const ref = useRef<HTMLDivElement>(null);
 
     const handleClickOutside = useCallback((event: MouseEvent) => {
         const element = ref.current;
         if (element && !element.contains(event.target as Node)) {
-            element.style.display = 'none'
+            close()
         }
-    }, [ref]);
+    }, [close]);
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);

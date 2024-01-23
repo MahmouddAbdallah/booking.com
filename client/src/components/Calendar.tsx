@@ -14,7 +14,7 @@ const Calendar: React.FC<calendarInterface> = ({ start, end, setStart, setEnd, s
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const [hoverNum, setHoverNum] = useState({ day: 0, month: "" });
     const calendarRef = useRef<HTMLDivElement>(null);
-    const ref = useCloseOnOutsideClick()
+    const ref = useCloseOnOutsideClick(() => { setToggle(false) })
 
     const handleCalendar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number, month: string) => {
         e.preventDefault()
