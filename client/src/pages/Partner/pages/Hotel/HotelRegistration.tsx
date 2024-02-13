@@ -7,7 +7,7 @@ import { HotelType } from "../../../../types/hotelType";
 import Location from "./component/Location";
 
 const HotelRegistration = () => {
-    const [imageSelect, setImageSelect] = useState<ImageDataType[]>([]);
+    const [, setImageSelect] = useState<ImageDataType[]>([]);
     const hotelForm = useForm<HotelType>();
     const { handleSubmit } = hotelForm;
     const h = handleSubmit(async (f) => {
