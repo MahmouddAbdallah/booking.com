@@ -17,7 +17,7 @@ const QuickAndEasy = () => {
     ];
 
     return (
-        <div className='space-y-3 mt-14'>
+        <section className='space-y-3 mt-14'>
             <div className='p-container'>
                 <div>
                     <h4 className='text-2xl font-bold'>Quick and easy trip planner</h4>
@@ -61,7 +61,7 @@ const QuickAndEasy = () => {
                     }
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

@@ -33,7 +33,7 @@ const Navbar = () => {
     ]
     return (
         <nav className='bg-primary'>
-            <div className='p-container'>
+            <div className='p-container pb-3'>
                 <div className='flex justify-between items-center py-5'>
                     <Link to={'/'}>
                         <LogoIcon className='w-[120px] lg:w-[140px]' />
@@ -65,11 +65,11 @@ const Navbar = () => {
                                 <AboutIcon className='w-5 fill-white' />
                             </div>
                         </div>
-                        <div>
+                        <Link to={"/partner"} target='blank'>
                             <span className='text-white font-semibold text-sm lg:text-base'>
                                 List your property
                             </span>
-                        </div>
+                        </Link>
                         {
                             !pathname.includes("sign-up") &&
                             <div className='space-x-2'>

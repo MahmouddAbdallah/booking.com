@@ -26,7 +26,7 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
     },
     {
         text: "List your property",
-        link: "list-your-property",
+        link: "/partner",
         icon: <HomeListIcon className="w-6 fill-black" />
     }
     ]
@@ -48,14 +48,17 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
                 <ul className=" space-y-7">
                     {menuMore.map(item =>
                         <li key={item.text}>
-                            <div className="flex items-center gap-2">
+                            <button onClick={() => {
+                                navigate(item.link)
+                                document.body.style.overflow = 'auto'
+                            }} className="flex items-center gap-2">
                                 <div>
                                     {item.icon}
                                 </div>
                                 <div>
                                     <p className="text-sm">{item.text}</p>
                                 </div>
-                            </div>
+                            </button>
                         </li>
                     )}
                 </ul>
@@ -73,14 +76,17 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
                                 <ul className=" space-y-7">
                                     {item.element.map(item =>
                                         <li key={item.text}>
-                                            <div className="flex items-center gap-2">
+                                            <button onClick={() => {
+                                                navigate(item.link)
+                                                document.body.style.overflow = 'auto'
+                                            }} className="flex items-center gap-2">
                                                 <div>
                                                     {item.icon}
                                                 </div>
                                                 <div>
                                                     <p className="text-sm">{item.text}</p>
                                                 </div>
-                                            </div>
+                                            </button>
                                         </li>
                                     )}
                                 </ul>

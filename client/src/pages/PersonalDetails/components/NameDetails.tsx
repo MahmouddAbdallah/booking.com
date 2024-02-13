@@ -1,16 +1,36 @@
-import { SetStateAction } from 'react'
+import axios from 'axios';
+import { SetStateAction, useEffect, useState } from 'react'
+import { UserInterface } from '../../../context/appContext'
 interface props {
     context?: {
-        user: {
-            firstName: string,
-            lastName: string,
-        }
+        user: UserInterface
+        setUser: React.Dispatch<SetStateAction<UserInterface>>
     }
     setToggle: React.Dispatch<SetStateAction<string>>;
     toggle: string;
 }
 const NameDetails: React.FC<props> = ({ context, setToggle, toggle }) => {
+    const [firstName, setFirstName] = useState(context?.user.firstName)
+    const [lastName, setLastName] = useState(context?.user.lastName)
 
+    useEffect(() => {
+        if (context?.user) {
+            setFirstName(context?.user.firstName || "");
+            setLastName(context?.user.lastName || "");
+        }
+    }, [context?.user]);
+
+    const updateUser = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        try {
+            e.preventDefault()
+            const { data } = await axios.put(`/api/user/${context?.user._id}`,
+                { firstName: firstName, lastName: lastName });
+            context?.setUser(data.user);
+            setToggle("")
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className="border-t p-3 flex justify-between items-center">
             <div className=" w-full">
@@ -28,9 +48,10 @@ const NameDetails: React.FC<props> = ({ context, setToggle, toggle }) => {
                                         </h5>
                                     </div>
                                     <input
-                                        className='text-sm border border-black/30 focus:outline-blue-500 w-full rounded-md py-2 px-2'
                                         type="text"
-                                        value={context?.user.firstName}
+                                        className='text-sm border border-black/30 focus:outline-blue-500 w-full rounded-md py-2 px-2'
+                                        value={firstName}
+                                        onChange={e => setFirstName(e.target.value)}
                                     />
                                 </div>
                                 <div className="w-full space-y-1">
@@ -43,15 +64,25 @@ const NameDetails: React.FC<props> = ({ context, setToggle, toggle }) => {
                                         </h5>
                                     </div>
                                     <input
-                                        className='text-sm border border-black/30 focus:outline-blue-500 w-full rounded-md py-2 px-2'
-                                        value={context?.user.lastName}
                                         type="text"
+                                        className='text-sm border border-black/30 focus:outline-blue-500 w-full rounded-md py-2 px-2'
+                                        value={lastName}
+                                        onChange={e => setLastName(e.target.value)}
                                     />
                                 </div>
                             </div>
                             <div className="flex justify-between pt-3">
-                                <button onClick={() => { setToggle('') }} className="text-sm font-semibold text-blue-600 py-2 px-4 rounded hover:bg-blue-600/10 duration-300">Cancel</button>
-                                <button className="bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded hover:bg-blue-800 duration-300">Save</button>
+                                <button
+                                    onClick={() => { setToggle('') }}
+                                    className="text-sm font-semibold text-blue-600 py-2 px-4 rounded hover:bg-blue-600/10 duration-300">
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={updateUser}
+                                    className="bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded hover:bg-blue-800 duration-300"
+                                >
+                                    Save
+                                </button>
                             </div>
                         </form>
                         :

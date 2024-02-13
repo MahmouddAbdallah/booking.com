@@ -7,7 +7,7 @@ import {
     useEffect,
     useState
 } from 'react'
-interface User {
+export interface UserInterface {
     _id: string;
     email: string;
     lastName: string;
@@ -22,16 +22,17 @@ interface User {
     }
 }
 type appContext = {
-    user: User;
+    user: UserInterface;
     isLogged: boolean
-    setIsLogged: React.Dispatch<SetStateAction<boolean>>
+    setIsLogged: React.Dispatch<SetStateAction<boolean>>;
+    setUser: React.Dispatch<SetStateAction<UserInterface>>
 }
 const appContext = createContext<appContext | undefined>(undefined);
 interface appProps {
     children: ReactNode
 }
 const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => {
-    const [user, setUser] = useState<User>({
+    const [user, setUser] = useState<UserInterface>({
         _id: "",
         email: '',
         lastName: '',
@@ -60,7 +61,7 @@ const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => 
     }, [])
 
     return (
-        <appContext.Provider value={{ user, isLogged, setIsLogged }}>
+        <appContext.Provider value={{ user, isLogged, setIsLogged, setUser }}>
             {children}
         </appContext.Provider>
     )

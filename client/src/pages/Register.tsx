@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { UseAppContext } from '../context/appContext';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+
 
 type registerTypes = {
     firstName: string
@@ -26,11 +28,12 @@ const Register = () => {
                     "Content-Type": "application/json"
                 }
             })
-            console.log(data.message);
+            toast.success(data?.message);
             context?.setIsLogged(true);
             navigate('/');
             window.location.reload();
         } catch (error) {
+            if (axios.isAxiosError(error)) toast.error(error?.response?.data.error);
             console.error(error);
         }
     })
@@ -134,6 +137,11 @@ const Register = () => {
                     <button className='w-full bg-primary text-white py-2 rounded-md my-3'>
                         Register
                     </button>
+                </div>
+                <div className='flex justify-center'>
+                    <span className=' text-xs'>
+                        Already have an account? <Link className='text-blue-600 hover:underline' to={'/sign-in'}>Sign in</Link>
+                    </span>
                 </div>
             </form>
         </div>

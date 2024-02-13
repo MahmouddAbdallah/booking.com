@@ -30,7 +30,7 @@ const Offer = () => {
                     </div>
                 </div>
                 <div className=''>
-                    <div className='w-full md:w-[577px] h-[178px] rounded-md overflow-hidden relative flex'>
+                    <div className='w-full md:w-[545px] h-[178px] rounded-md overflow-hidden relative flex'>
                         <div className='absolute grid grid-cols-7 h-full px-3 py-3'>
                             <div className='h-full space-y-7 col-span-5'>
                                 <div className='space-y-1'>

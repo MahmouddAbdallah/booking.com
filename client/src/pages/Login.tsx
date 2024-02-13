@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 import { UseAppContext } from '../context/appContext';
 type registerTypes = {
     email: string,
@@ -20,10 +21,11 @@ const Login = () => {
                     "Content-Type": "application/json"
                 }
             })
-            console.log(data.message);
+            toast.success(data?.message);
             context?.setIsLogged(true)
             navigate("/")
         } catch (error) {
+            if (axios.isAxiosError(error)) toast.error(error?.response?.data.error);
             console.error(error);
         }
     })
@@ -69,6 +71,11 @@ const Login = () => {
                     <button className='w-full bg-primary text-white py-2 rounded-md my-3'>
                         Login
                     </button>
+                </div>
+                <div className='flex justify-center'>
+                    <span className=' text-xs'>
+                        Don't have an account? <Link className='text-blue-600 hover:underline' to={'/sign-up'}>Sign up</Link>
+                    </span>
                 </div>
             </form>
         </div>

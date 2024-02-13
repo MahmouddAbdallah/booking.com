@@ -10,7 +10,7 @@ const Search = () => {
     return (
         <div className="relative w-full">
             <div className="absolute top-[-250px] lg:top-[-90px] w-full">
-                <form className="p-container py-14">
+                <form className="p-container pb-14 pt-12">
                     <div className="flex flex-col lg:flex-row lg:items-center bg-goldColor p-1 gap-1 rounded-md">
                         <div className="w-full relative flex items-center">
                             <input

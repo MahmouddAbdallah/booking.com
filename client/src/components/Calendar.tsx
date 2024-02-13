@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "./Icons";
-import useCloseOnOutsideClick from "../hook/useCloseTap";
 
 interface calendarInterface {
     start: { day: number, month: string }
@@ -12,9 +11,17 @@ interface calendarInterface {
 const Calendar: React.FC<calendarInterface> = ({ start, end, setStart, setEnd, setToggle }) => {
     const days = ['Mo', 'Tu', 'We', "Th", "Fr", "Sa", "Su"];
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const monthNumber = (currentDate.getMonth())
+    const currentMonthName = monthNames[monthNumber]
+
+
     const [hoverNum, setHoverNum] = useState({ day: 0, month: "" });
     const calendarRef = useRef<HTMLDivElement>(null);
-    const ref = useCloseOnOutsideClick(() => { setToggle(false) })
+    const newMonth = monthNames.splice(monthNumber, monthNames.length)
+
+
 
     const handleCalendar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number, month: string) => {
         e.preventDefault()
@@ -37,14 +44,14 @@ const Calendar: React.FC<calendarInterface> = ({ start, end, setStart, setEnd, s
         e.preventDefault();
         const calendar = calendarRef.current;
         if (calendar) {
-            calendar.scrollLeft += calendar.clientWidth - 2;
+            calendar.scrollLeft += calendar.clientWidth
         }
     };
     const prevMonth = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         const calendar = calendarRef.current;
         if (calendar) {
-            calendar.scrollLeft -= calendar.clientWidth - 2;
+            calendar.scrollLeft -= calendar.clientWidth
         }
     };
     const handleHoverCalendar = (index: number, month: string) => {
@@ -54,10 +61,10 @@ const Calendar: React.FC<calendarInterface> = ({ start, end, setStart, setEnd, s
     }
 
     return (
-        <div ref={ref} className="flex justify-center bg-white">
+        <div className="flex justify-center bg-white">
             <div className="w-[350px] md:w-[500px] lg:w-[550px] border rounded-md py-3 relative">
                 <div className="w-full flex">
-                    <button className="w-full py-2">
+                    <button className="w-full py-2 border-b-2">
                         Calendar
                     </button>
                     <button className="w-full py-2">
@@ -74,65 +81,71 @@ const Calendar: React.FC<calendarInterface> = ({ start, end, setStart, setEnd, s
                         <ArrowLeftIcon className="w-5" />
                     </button>
                 </div>
-                <div ref={calendarRef} className=" relative w-full flex overflow-x-scroll scroll-smooth px-3 gap-5 hidden-scrollbar" id="default-carousel" data-carousel="slide">
-                    {monthNames.map((month) =>
-                        <div key={month} className=" col-span-12">
-                            <div className=" w-full text-center">
-                                {month}
-                            </div>
-                            <div >
-                                <div className="grid grid-cols-7 py-2">
-                                    {days.map(item =>
-                                        <div key={item} className="col-span-1 flex items-center justify-center text-sm">
-                                            {item}
+                <div ref={calendarRef} className="relative w-full flex overflow-x-hidden scroll-smooth px-3 gap-5 hidden-scrollbar">
+                    {
+                        newMonth.map((month) => {
+                            return (
+                                <div key={month} className=" col-span-12">
+                                    <div className=" w-full text-center">
+                                        {month}
+                                    </div>
+                                    <div >
+                                        <div className="grid grid-cols-7 py-2">
+                                            {days.map(item =>
+                                                <div key={item} className="col-span-1 flex items-center justify-center text-sm">
+                                                    {item}
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                                <div className="w-[325px] md:w-[475px] lg:w-[525px]">
-                                    <div className="grid grid-cols-7 ">
-                                        {
-                                            Array(
-                                                month == "February" ? 29 :
-                                                    month == "April" ? 30 :
-                                                        month == "June" ? 30 :
-                                                            month == "September" ? 30 :
-                                                                31
-                                            ).fill(undefined).map((_, i) => {
-                                                const currentDate = i + 1;
-                                                const isStartMonth = start.month === month;
-                                                const isEndMonth = end.month === month;
-                                                const isBetweenStartAndEnd =
-                                                    ((isStartMonth)
-                                                        && (end.day != 35)
-                                                        && (currentDate > start.day)
-                                                        && (end.month == start.month ? false : true))
-                                                    || (isEndMonth && currentDate < end.day && start.month != end.month);
-                                                return (
-                                                    <button
-                                                        key={i}
-                                                        onClick={(e) => handleCalendar(e, i, month)}
-                                                        className={`
-                                                    col-span-1 
-                                                    ${start.day === currentDate && isStartMonth && "bg-slate-600 text-white"}
-                                                    ${isBetweenStartAndEnd && "bg-slate-200"}
-                                                    ${((currentDate > start.day && hoverNum.day > currentDate - 1) && month == hoverNum.month) ? "bg-slate-200" : ""}
-                                                    ${end.day === currentDate && isEndMonth && "bg-slate-600 text-white"}
-                                                `}
-                                                    >
-                                                        <div
-                                                            onMouseMove={() => handleHoverCalendar(i, month)}
-                                                            className="p-2 text-sm"
-                                                        >
-                                                            {currentDate}
-                                                        </div>
-                                                    </button>
-                                                );
-                                            })}
+                                        <div className="w-[325px] md:w-[475px] lg:w-[525px]">
+                                            <div className="grid grid-cols-7 ">
+                                                {
+                                                    Array(
+                                                        month == "February" ? 29 :
+                                                            month == "April" ? 30 :
+                                                                month == "June" ? 30 :
+                                                                    month == "September" ? 30 :
+                                                                        31
+                                                    ).fill(undefined).map((_, i) => {
+                                                        const currentDate = i + 1;
+                                                        const isStartMonth = start.month === month;
+                                                        const isEndMonth = end.month === month;
+                                                        const isBetweenStartAndEnd =
+                                                            ((isStartMonth)
+                                                                && (end.day != 35)
+                                                                && (currentDate > start.day)
+                                                                && (end.month == start.month ? false : true))
+                                                            || (isEndMonth && currentDate < end.day && start.month != end.month);
+                                                        return (
+                                                            <button
+                                                                key={i}
+                                                                onClick={(e) => handleCalendar(e, i, month)}
+                                                                disabled={(day > currentDate && (currentMonthName == month)) ? true : false}
+                                                                className={`
+                                                                col-span-1 rounded
+                                                                ${(day > currentDate && (currentMonthName == month)) ? "text-black/20" : ""}
+                                                                ${start.day === currentDate && isStartMonth && "bg-primary text-white"}
+                                                                ${isBetweenStartAndEnd && "bg-slate-200"}
+                                                                ${((currentDate > start.day && hoverNum.day > currentDate - 1) && month == hoverNum.month) ? "bg-slate-200" : ""}
+                                                                ${end.day === currentDate && isEndMonth && "bg-primary text-white"}
+                                                            `}
+                                                            >
+                                                                <div
+                                                                    onMouseMove={() => handleHoverCalendar(i, month)}
+                                                                    className="p-2 text-sm"
+                                                                >
+                                                                    {currentDate}
+                                                                </div>
+                                                            </button>
+                                                        );
+                                                    })}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    )}
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>
