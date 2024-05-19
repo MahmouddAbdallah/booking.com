@@ -8,7 +8,6 @@ import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick';
 
 const PersonMenu = () => {
     const navigate = useNavigate()
-    const constext = UseAppContext()
     const [openPersonMenu, setOpenPersonMenu] = useState(false);
     const close = useCloseOnOutsideClick(() => { setOpenPersonMenu(false) })
 
@@ -25,7 +24,7 @@ const PersonMenu = () => {
             const { data } = await axios.get("/auth/log-out");
             console.log(data.message);
             navigate('/sign-in');
-            constext?.setIsLogged(false)
+            window.location.reload()
         } catch (error) {
             console.error(error);
         }

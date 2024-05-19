@@ -98,7 +98,7 @@ const Menu: React.FC<MenuInterface> = ({ open, setOpen }) => {
             <div className="flex justify-center py-5">
                 <div className='space-x-2'>
                     {
-                        !context?.isLogged &&
+                        !context?.user &&
                         <>
                             <button onClick={() => closeMenu('/sign-up')} className='bg-blue-50 text-blue-600 border border-blue-600 text-sm font-semibold rounded-sm px-5 py-2'>
                                 Register

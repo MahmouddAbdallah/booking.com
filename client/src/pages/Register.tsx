@@ -29,7 +29,6 @@ const Register = () => {
                 }
             })
             toast.success(data?.message);
-            context?.setIsLogged(true);
             navigate('/');
             window.location.reload();
         } catch (error) {
@@ -37,7 +36,7 @@ const Register = () => {
             console.error(error);
         }
     })
-    if (context?.isLogged) {
+    if (context?.user) {
         return <Navigate to={'/'} />
     }
     return (
