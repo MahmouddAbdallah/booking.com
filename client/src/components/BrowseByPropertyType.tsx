@@ -8,7 +8,7 @@ const BrowseByPropertyType = () => {
         {
             img: 'https://res.cloudinary.com/dbqcy0tzn/image/upload/v1707127530/57584488_mn4xpp.jpg',
             name: 'Hotels',
-            link: "/hotels"
+            link: "/apartment"
         },
         {
             img: 'https://res.cloudinary.com/dbqcy0tzn/image/upload/v1707125635/apartment.jpg',
@@ -18,12 +18,12 @@ const BrowseByPropertyType = () => {
         {
             img: 'https://res.cloudinary.com/dbqcy0tzn/image/upload/v1707127529/45450084_iknnzb.jpg',
             name: 'Resorts',
-            link: "/resorts"
+            link: "/apartment"
         },
         {
             img: 'https://res.cloudinary.com/dbqcy0tzn/image/upload/v1707127530/100235855_gnujq9.jpg',
             name: 'Villas',
-            link: "/villas"
+            link: "/apartment"
         },
     ]
     const btnSlide = () => {

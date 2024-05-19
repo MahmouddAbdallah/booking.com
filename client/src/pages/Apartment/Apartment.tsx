@@ -9,8 +9,6 @@ const Apartment = () => {
     const fetchApartments = async () => {
         const data = await ftechApatmentsAPI('fields=location,title,price,description,images')
         setApartments(data);
-        console.log(data);
-
     }
     useEffect(() => {
         fetchApartments();

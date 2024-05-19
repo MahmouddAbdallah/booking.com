@@ -60,7 +60,7 @@ const HeaderPartner = () => {
                             </div>
                         </div>
                         <div className='border-y px-7 py-4 w-full mt-5'>
-                            <Link className='' to={''}>
+                            <Link className='' to={'/partner/sign-up/category'}>
                                 <div className='bg-[#0071c2] w-full text-center text-white py-3 rounded'>
                                     Get started now
                                 </div>

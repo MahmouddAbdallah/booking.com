@@ -1,30 +1,39 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { ImageDataType } from "../../../../types/apartment";
 import InputFile from "../../components/InputFile"
 import { useForm, FormProvider } from 'react-hook-form'
 import { HotelType } from "../../../../types/hotelType";
-import Location from "./component/Location";
+import DepartmentDetails from "../../components/DepartmentDetails";
+import DeparmentFacilities from "../../components/DeparmentFacilities";
+import Rules from "../../components/Rules";
 
 const HotelRegistration = () => {
     const [, setImageSelect] = useState<ImageDataType[]>([]);
     const hotelForm = useForm<HotelType>();
     const { handleSubmit } = hotelForm;
-    const h = handleSubmit(async (f) => {
+    const submitHotel = handleSubmit(async (f) => {
         console.log(f);
 
     })
     return (
-        <div className="p-container">
+        <div className="p-container pb-10">
             <FormProvider {...hotelForm}>
-                <form onSubmit={h}>
+                <form onSubmit={submitHotel} >
                     <div className="mb-5">
                         <InputFile
                             setImageSelect={setImageSelect}
                         />
                     </div>
-                    <Location />
                     <div className="space-y-5">
+                        <DepartmentDetails />
+                        {/* <DepartmentRooms
+                            typeOfRooms={typeOfRooms}
+                            settypeOfRooms={settypeOfRooms}
+                            numberOfRooms={numberOfRooms}
+                            setnumberOfRooms={setnumberOfRooms}
+                        /> */}
+                        <DeparmentFacilities />
+                        <Rules />
                         <div className="flex justify-center">
                             <button className="w-full text-white bg-blue-600 py-2 rounded">
                                 Submit

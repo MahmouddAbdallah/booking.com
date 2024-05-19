@@ -9,30 +9,36 @@ const Genderd = () => {
     const [rooms, setRooms] = useState(1)
     const [toggle, setToggle] = useState(false)
     const modalRef = useCloseOnOutsideClick(() => setToggle(false))
+
     return (
         <div ref={modalRef}>
-            <div onClick={() => { setToggle(!toggle) }} className="w-full relative flex items-center  bg-white rounded-md">
-                <div className="absolute ml-2">
-                    <AccountIcon className="w-5" />
-                </div>
-                <div className="w-full h-[55px] flex gap-5 items-center text-black  pl-9 text-sm">
-                    <div className='flex items-center gap-2 cursor-pointer'>
-                        <h4 className='text-sm font-semibold'>Adults</h4>
-                        <span className='font-semibold'>{adults}</span>
-                    </div>
-                    <div className='flex items-center gap-2 cursor-pointer'>
-                        <h4 className='text-sm font-semibold'>Children</h4>
-                        <span className='font-semibold'>{children}</span>
-                    </div>
-                    <div className='flex items-center gap-2 cursor-pointer'>
-                        <h4 className='text-sm font-semibold'>Rooms</h4>
-                        <span className='font-semibold'>{rooms}</span>
-                    </div>
-                </div>
+            <div className="w-full relative flex items-center  bg-white rounded-md">
                 <div
-                    className='absolute left-0 top-14 z-50'>
-                    {
-                        toggle &&
+                    className="flex items-center"
+                    onClick={() => { setToggle(!toggle) }}
+                >
+                    <div className="absolute ml-2">
+                        <AccountIcon className="w-5" />
+                    </div>
+                    <div className="w-full h-[55px] flex gap-5 items-center text-black  pl-9 text-sm">
+                        <div className='flex items-center gap-2 cursor-pointer'>
+                            <h4 className='text-sm font-semibold'>Adults</h4>
+                            <span className='font-semibold'>{adults}</span>
+                        </div>
+                        <div className='flex items-center gap-2 cursor-pointer'>
+                            <h4 className='text-sm font-semibold'>Children</h4>
+                            <span className='font-semibold'>{children}</span>
+                        </div>
+                        <div className='flex items-center gap-2 cursor-pointer'>
+                            <h4 className='text-sm font-semibold'>Rooms</h4>
+                            <span className='font-semibold'>{rooms}</span>
+                        </div>
+                    </div>
+                </div>
+                {
+                    toggle &&
+                    <div
+                        className='absolute left-0 top-14 z-50'>
                         <div className='w-96 border shadow-md rounded-md px-3 py-4 bg-white'>
                             <div className='space-y-2'>
                                 <div className='flex justify-between items-center'>
@@ -106,8 +112,8 @@ const Genderd = () => {
                                 <button className='w-full py-2 text-blue-600 border border-blue-600 rounded font-semibold text-sm'>Done</button>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     )

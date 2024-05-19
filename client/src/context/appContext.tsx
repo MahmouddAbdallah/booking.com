@@ -23,8 +23,6 @@ export interface UserInterface {
 }
 type appContext = {
     user: UserInterface;
-    isLogged: boolean
-    setIsLogged: React.Dispatch<SetStateAction<boolean>>;
     setUser: React.Dispatch<SetStateAction<UserInterface>>
 }
 const appContext = createContext<appContext | undefined>(undefined);
@@ -46,12 +44,10 @@ const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => 
             postalCode: "",
         }
     });
-    const [isLogged, setIsLogged] = useState(false)
     const getUser = async () => {
         try {
             const { data } = await axios.get('/api/user/verfiy');
             setUser(data.user)
-            setIsLogged(true)
         } catch (error) {
             console.error(error);
         }
@@ -61,7 +57,7 @@ const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => 
     }, [])
 
     return (
-        <appContext.Provider value={{ user, isLogged, setIsLogged, setUser }}>
+        <appContext.Provider value={{ user, setUser }}>
             {children}
         </appContext.Provider>
     )

@@ -40,7 +40,7 @@ const Navbar = () => {
                     </Link>
                     <div className='flex gap-3 lg:hidden'>
                         {
-                            context?.isLogged ?
+                            context?.user ?
                                 <PersonMenu />
                                 : <>
                                     {!pathname.includes("sign-in") &&
@@ -74,7 +74,7 @@ const Navbar = () => {
                             !pathname.includes("sign-up") &&
                             <div className='space-x-2'>
                                 {
-                                    context?.isLogged ?
+                                    context?.user ?
                                         <PersonMenu />
                                         :
                                         <>

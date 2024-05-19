@@ -1,108 +1,127 @@
 import mongoose from "mongoose";
 
-export type HotelType ={
-    title:string,
+export type HotelType = {
+    title: string,
     images: [string],
-    location:{
-        country:string
-        city:string
-        address:string
+    location: {
+        country: string
+        city: string
+        address: string
     },
-    price:{
-        type:number,
-        required: [true,'Price is required']
+    price: {
+        type: number,
     },
-    description:string
-    facilities:{
-        wifi:string[],
-        parking:string[],
-        kitchen:string[]
+    description: string
+    facilities: {
+        view: boolean,
+        balcony: boolean,
+        pool: boolean,
+        bath: boolean,
+        terrace: boolean,
+        safe: boolean,
+        tv: boolean,
+        familyRooms: boolean,
+        wifi: boolean,
+        parking: boolean,
+        kitchen: boolean,
+        Bathroom: boolean,
+        Washingmachine: boolean,
     },
-    rules:{
-        CheckIn:{
+    rules: {
+        CheckIn: {
             time: {
-                from:string,
+                from: string,
                 to: string
-            }, 
-            message:string
+            },
+            message: string
         },
-        CheckOut:{
+        CheckOut: {
             time: {
-                from:string,
+                from: string,
                 to: string
-            }, 
-            message:string
+            },
+            message: string
         },
-        childrenAndBeds:string,
-        smoking:string,
+        childrenAndBeds: string,
+        smoking: string,
         pets: string,
-        ageRestriction:string,
-        Damagepolicy:string
+        ageRestriction: string,
+        Damagepolicy: string
     },
     authorizedUser: string
 }
 
 const hotelSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        required:[true,'The title is required']
+    title: {
+        type: String,
+        required: [true, 'The title is required']
     },
     images: {
-        type:[String]
+        type: [String]
     },
-    location:{
-        country:{
-            type:String,
-            required:[true,'The country is required']
+    location: {
+        country: {
+            type: String,
+            required: [true, 'The country is required']
         },
-        city:{
-            type:String,
-            required:[true,'The city is required']
+        city: {
+            type: String,
+            required: [true, 'The city is required']
         },
-        address:{
-            type:String,
-            required:[true,'The address is required']
+        address: {
+            type: String,
+            required: [true, 'The address is required']
         },
     },
-    price:{
-        type:Number,
-        required: [true,'Price is required']
+    price: {
+        type: Number,
+        required: [true, 'Price is required']
     },
-    description:{
-        type:String,
-        required: [true,'The description is required'],
+    description: {
+        type: String,
+        required: [true, 'The description is required'],
     },
-    facilities:{
-        wifi:[String],
-        parking:[String],
-        kitchen:[String]
+    facilities: {
+        view: Boolean,
+        balcony: Boolean,
+        pool: Boolean,
+        bath: Boolean,
+        terrace: Boolean,
+        safe: Boolean,
+        tv: Boolean,
+        familyRooms: Boolean,
+        wifi: Boolean,
+        parking: Boolean,
+        kitchen: Boolean,
+        Bathroom: Boolean,
+        Washingmachine: Boolean,
     },
-    rules:{
-        CheckIn:{
+    rules: {
+        CheckIn: {
             time: {
-                from:String,
+                from: String,
                 to: String
             }, //"9:00 AM" or "14:30 PM
-            message:String
+            message: String
         },
-        CheckOut:{
+        CheckOut: {
             time: {
-                from:String,
+                from: String,
                 to: String
             }, //"9:00 AM" or "14:30 PM
-            message:String
+            message: String
         },
-        childrenAndBeds:String,
-        smoking:String,
+        childrenAndBeds: String,
+        smoking: String,
         pets: String,
-        ageRestriction:String,
-        Damagepolicy:String
+        ageRestriction: String,
+        Damagepolicy: String
     },
     authorizedUser: {
-        type:mongoose.Types.ObjectId,
-        ref:'partner',
-        required:[true,'authorizedUser is required']
+        type: mongoose.Types.ObjectId,
+        ref: 'partner',
+        required: [true, 'authorizedUser is required']
     },
 })
-const Hotel = mongoose.model<HotelType>('Hotel',hotelSchema);
+const Hotel = mongoose.model<HotelType>('Hotel', hotelSchema);
 export default Hotel;

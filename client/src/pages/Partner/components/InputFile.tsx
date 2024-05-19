@@ -36,7 +36,6 @@ const InputFile: React.FC<inputFileprops> = ({ setImageSelect }) => {
                             setImages(urls);
                         }
                     }
-                    // newFormData.append('images', files[i]);
                     setImageSelect((prev) => { return [...prev, files[i]] })
                 };
                 reader.readAsDataURL(files[i]);
