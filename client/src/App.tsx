@@ -4,24 +4,24 @@ import axios from 'axios';
 import Home from './pages/Home'
 import Layout from './Layouts/Layout'
 import { Toaster } from 'react-hot-toast'
-const Register = lazy(() => import('./pages/Register'));
-const Login = lazy(() => import('./pages/Login'));
-const AccountLayout = lazy(() => import('./Layouts/AccountLayout'));
-const Account = lazy(() => import('./pages/Account'));
-const PersonalDetails = lazy(() => import('./pages/PersonalDetails/PersonalDetails'));
-const PartnerLayout = lazy(() => import('./Layouts/PartnerLayout'));
-const Partner = lazy(() => import('./pages/Partner/Partner'));
-const SignInAsPartner = lazy(() => import('./pages/Partner/pages/SignInAsPartner'));
-const SignUpPartner = lazy(() => import('./pages/Partner/pages/SignUpPartner'));
-const SignUpCategory = lazy(() => import('./pages/Partner/pages/SignUpCategory'));
-const DepartmentRegistration = lazy(() => import('./pages/Partner/pages/DepartmentRegistration'));
-const HomesRegistration = lazy(() => import('./pages/Partner/pages/HomesRegistration'));
-const HotelRegistration = lazy(() => import('./pages/Partner/pages/Hotel/HotelRegistration'));
-const MyProperties = lazy(() => import('./pages/Partner/pages/MyProperties'));
-const DepartmentSingle = lazy(() => import('./pages/Partner/pages/DepartmentSingle'));
-const NotFound = lazy(() => import('./components/NotFound'));
-const Apartment = lazy(() => import('./pages/Apartment/Apartment'))
-const ShowApartment = lazy(() => import('./pages/Apartment/ShowApartment'));
+const Register = lazy(() => import('./pages/Register.tsx'));
+const Login = lazy(() => import('./pages/Login.tsx'));
+const AccountLayout = lazy(() => import('./Layouts/AccountLayout.tsx'));
+const Account = lazy(() => import('./pages/Account.tsx'));
+const PersonalDetails = lazy(() => import('./pages/PersonalDetails/PersonalDetails.tsx'));
+const PartnerLayout = lazy(() => import('./Layouts/PartnerLayout.tsx'));
+const Partner = lazy(() => import('./pages/Partner/Partner.tsx'));
+const SignInAsPartner = lazy(() => import('./pages/Partner/pages/SignInAsPartner.tsx'));
+const SignUpPartner = lazy(() => import('./pages/Partner/pages/SignUpPartner.tsx'));
+const SignUpCategory = lazy(() => import('./pages/Partner/pages/SignUpCategory.tsx'));
+const DepartmentRegistration = lazy(() => import('./pages/Partner/pages/DepartmentRegistration.tsx'));
+const HomesRegistration = lazy(() => import('./pages/Partner/pages/HomesRegistration.tsx'));
+const HotelRegistration = lazy(() => import('./pages/Partner/pages/Hotel/HotelRegistration.tsx'));
+const MyProperties = lazy(() => import('./pages/Partner/pages/MyProperties.tsx'));
+const DepartmentSingle = lazy(() => import('./pages/Partner/pages/DepartmentSingle.tsx'));
+const NotFound = lazy(() => import('./components/NotFound.tsx'));
+const Apartment = lazy(() => import('./pages/Apartment/Apartment.tsx'))
+const ShowApartment = lazy(() => import('./pages/Apartment/ShowApartment.tsx'));
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
