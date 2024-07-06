@@ -4,21 +4,43 @@ import {
     createContext,
     useContext,
     useEffect,
-    useState
-} from 'react'
+    useState,
+    Dispatch,
+    SetStateAction,
+    FunctionComponent
+} from 'react';
 
-
-const appContext = createContext<undefined>(undefined);
-interface appProps {
-    children: ReactNode
+export interface User {
+    _id: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    phone: string;
+    gender: string;
+    address: {
+        country: string;
+        address: string;
+        city: string;
+        postalCode: string;
+    }
 }
-const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => {
-    const [user, setUser] = useState(null);
+
+interface AppContextValue {
+    user: User | null;
+    setUser: Dispatch<SetStateAction<User | null>>;
+}
+
+const appContext = createContext<AppContextValue | undefined>(undefined);
+
+interface AppProps {
+    children: ReactNode;
+}
+
+const AppContextProvider: FunctionComponent<AppProps> = ({ children }) => {
+    const [user, setUser] = useState<User | null>(null);
     const getUser = async () => {
         try {
             const { data } = await axios.get('/api/user/verfiy');
-            console.log({ user: data.user });
-
             setUser(data.user)
         } catch (error) {
             console.error(error);
@@ -32,11 +54,15 @@ const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => 
         <appContext.Provider value={{ user, setUser }}>
             {children}
         </appContext.Provider>
-    )
-}
+    );
+};
+
 export const UseAppContext = () => {
-    return (
-        useContext(appContext)
-    )
-}
-export default AppContextProvider
+    const context = useContext(appContext);
+    if (context === undefined) {
+        throw new Error('useAppContext must be used within an AppContextProvider');
+    }
+    return context;
+};
+
+export default AppContextProvider;
