@@ -1,52 +1,24 @@
 import axios from 'axios';
 import {
     ReactNode,
-    SetStateAction,
     createContext,
     useContext,
     useEffect,
     useState
 } from 'react'
-export interface UserInterface {
-    _id: string;
-    email: string;
-    lastName: string;
-    firstName: string;
-    phone: string;
-    gender: string;
-    address: {
-        country: string;
-        address: string;
-        city: string;
-        postalCode: string;
-    }
-}
-type appContext = {
-    user: UserInterface;
-    setUser: React.Dispatch<SetStateAction<UserInterface>>
-}
-const appContext = createContext<appContext | undefined>(undefined);
+
+
+const appContext = createContext<undefined>(undefined);
 interface appProps {
     children: ReactNode
 }
 const AppContextProvider: React.FunctionComponent<appProps> = ({ children }) => {
-    const [user, setUser] = useState<UserInterface>({
-        _id: "",
-        email: '',
-        lastName: '',
-        firstName: '',
-        phone: '',
-        gender: '',
-        address: {
-            country: "",
-            address: "",
-            city: "",
-            postalCode: "",
-        }
-    });
+    const [user, setUser] = useState(null);
     const getUser = async () => {
         try {
             const { data } = await axios.get('/api/user/verfiy');
+            console.log({ user: data.user });
+
             setUser(data.user)
         } catch (error) {
             console.error(error);
